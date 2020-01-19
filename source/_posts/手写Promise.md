@@ -60,17 +60,17 @@ class MyPromise {
       onRejectedFn = function () {};
     }
     // then方法返回的是一个新的promise
-    let promise1 = new MyPromise((resolve, reject) => {
+    let newPromise = new MyPromise((resolve, reject) => {
       if (this.state === 'fulfilled') {
         MyPromise.async(() => {
           let value = onFulfilledFn(this.value);
-          if (value && promise1 !== value) resolve(value);
+          if (value && newPromise !== value) resolve(value);
         });
       }
       if (this.state === 'rejected') {
         MyPromise.async(() => {
           let reason = onRejectedFn(this.reason);
-          if (reason && promise1 !== reason) reject(reason);
+          if (reason && newPromise !== reason) reject(reason);
         });
       }
       if (this.state === 'pending') {
@@ -86,7 +86,7 @@ class MyPromise {
         });
       }
     })
-    return promise1;
+    return newPromise;
   }
 
   catch (onRejectedFn) {
